@@ -1,0 +1,16 @@
+{
+    "logger": {
+        "appenders": {
+            "logfile": { "type": "fileSync", "filename": "maklerbuero.log", "layout": { "type": "pattern", "pattern": "%d [%p] %m" } }
+        },
+        "categories": {
+            "default": { "appenders": [ "logfile" ], "level": "debug" }
+        }
+    },
+    "server_port": 8080,
+    "db_server": "127.0.0.1",
+    "db_port": 3306,
+    "db_name": "dbTest2",
+    "db_user": "test",
+    "db_password": "VerySecret"
+}

@@ -1,0 +1,58 @@
+{
+  "name": "maklerbuero",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Gabor Simon <gabor.simon75@gmail.com>",
+  "license": "BSD",
+  "private": true,
+  "scripts": {
+    "buildprod": "NODE_ENV=production webpack-cli --progress",
+    "builddev": "NODE_ENV=development webpack-cli --progress"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "canvas-gauges": "^2.1.5",
+    "chart.js": "^2.7.2",
+    "express": "^4.16.3",
+    "font-awesome": "^4.7.0",
+    "font-proxima-nova-scss": "^1.0.1",
+    "log4js": "^3.0.2",
+    "mysql": "^2.17.1",
+    "node-getopt": "^0.3.2",
+    "vue-axios": "^2.1.3",
+    "vue-chartjs": "^3.4.0",
+    "vue2-canvas-gauges": "0.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-component": "^1.1.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-preset-vue-app": "^2.0.0",
+    "css-loader": "^1.0.0",
+    "element-theme-chalk": "^2.4.6",
+    "element-ui": "^2.4.5",
+    "file-loader": "^1.1.4",
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "url-loader": "^1.1.1",
+    "vue": "^2.5.16",
+    "vue-loader": "^15.2.6",
+    "vue-router": "^3.0.1",
+    "vue-style-loader": "^4.1.1",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.3.2"
+  }
+}

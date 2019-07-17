@@ -1,3 +1,5 @@
+CONNECT dbTest2;
+
 DELETE FROM Ansehen;
 DELETE FROM Kunde;
 DELETE FROM Wohnung;

@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+## To debug this script:
+#exec > >(tee -a /tmp/x.log) 2> >(tee -a /tmp/x.log >&2) 
+#set -v -x
+
+THIS_PATH=$(readlink -m $(dirname -- $0))
+cd "$THIS_PATH"
+
 export PIDFILE='/tmp/maklerbuero.pid'
 export DEBUG=server:*
 export NODE_ENV=development
@@ -40,7 +47,7 @@ function do_stop() {
 
 function do_start() {
     echo -n "Starting server... "
-    node server_launcher.js -p "$PIDFILE"
+    node "$THIS_PATH/server_launcher.js" -p "$PIDFILE"
     if [ $? -ne 0 ]; then
         echo "Failed."
         return 1

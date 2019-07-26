@@ -10,7 +10,6 @@ var path = require("path");
 var scriptName = path.basename(__filename);
 var log4js = require("log4js");
 var logger = log4js.getLogger(scriptName);
-var utils = require("./utils");
 
 var config = require("./config.json");
 

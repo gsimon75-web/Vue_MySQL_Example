@@ -51,10 +51,13 @@ log4js.configure(config.logger);
 const logger = log4js.getLogger();
 
 // Register exit handler for cleaning up the pid file
-process.on("exit", (code) => {
-    logger.info("Process exiting;");
-    fs.unlinkSync(opt.options.pidfile);
-});
+if (!opt.options.foreground) {
+    process.on("exit", (code) => {
+        logger.info("Process exiting;");
+        fs.unlinkSync(opt.options.pidfile);
+    });
+
+}
 
 // Redirect exceptions to the log
 process.on("uncaughtException", (err) => {
@@ -107,11 +110,13 @@ app.use((err, req, res, next) => {
 
 // Get port from environment and store in Express.
 var port = parseInt(config.server_port, 10) || 8080;
-if (isNaN(port))
+if (isNaN(port)) {
     port = config.server_port; // named pipe
+}
 var listen_info = "Listen address; ";
-if (process.env.host != undefined)
+if (process.env.host != undefined) {
     listen_info += "host='" + process.env.host + "', ";
+}
 listen_info += "port='" + port + "', protocol='http'";
 logger.info(listen_info);
 app.set("port", port);
@@ -122,8 +127,9 @@ const server = http.createServer(app);
 
 // Die quickly and noisily if the server can't start up
 server.on("error", (error) => {
-    if (error.syscall !== "listen")
+    if (error.syscall !== "listen") {
         throw error;
+    }
 
     var bind_info = ((typeof port === "string") ? "pipe" : "port") + "='" + port + "'";
     // Handle specific listen errors with friendly messages
@@ -165,7 +171,9 @@ server.on("listening", () => {
     process.on("SIGTERM", () => { cleanup(); });
 
     // Startup complete, let the launcher process finish
-    process.disconnect();
+    if (!opt.options.foreground) {
+        process.disconnect();
+    }
 });
 
 // Start listening

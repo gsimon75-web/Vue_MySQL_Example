@@ -10,15 +10,14 @@ pipeline {
         //string(name: 'DBUser', defaultValue: 'test', description: 'The name of the DB service user')
         //password(name: 'DBPassword', description: 'Password of the DB service user')
     }
-    openshift.withCredentials('db-identity') {
-        environment {
-            SERVER_PORT = "${params.ServerPort}"
-            DB_SERVER   = "${params.DBServer}"
-            DB_PORT     = "${params.DBPort}"
-            DB_NAME     = "${params.DBName}"
-            DB_USER     = credentials('db-user')
-            DB_PASSWORD = credentials('db-password')
-        }
+    environment {
+        SERVER_PORT = "${params.ServerPort}"
+        DB_SERVER   = "${params.DBServer}"
+        DB_PORT     = "${params.DBPort}"
+        DB_NAME     = "${params.DBName}"
+        DB_IDENTITY = credentials('db-identity')
+        DB_USER     = "${DB_IDENTITY_USR}"
+        DB_PASSWORD = "${DB_IDENTITY_PSW}"
     }
     stages {
         stage('Test') {

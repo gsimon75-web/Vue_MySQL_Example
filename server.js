@@ -2,6 +2,10 @@
 const config = require("./config.json");
 
 // Set up logging
+if (typeof process.disconnect === 'undefined') {
+    // when running in foreground, log to stderr
+    config.logger.categories.default.appenders = [ "stderr" ];
+}
 const log4js = require("log4js");
 log4js.configure(config.logger);
 const logger = log4js.getLogger();

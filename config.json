@@ -1,7 +1,8 @@
 {
     "logger": {
         "appenders": {
-            "logfile": { "type": "fileSync", "filename": "maklerbuero.log", "layout": { "type": "pattern", "pattern": "%d [%p] %m" } }
+            "logfile": { "type": "fileSync", "filename": "maklerbuero.log", "layout": { "type": "pattern", "pattern": "%d [%p] %m" } },
+            "stderr": { "type": "stderr" }
         },
         "categories": {
             "default": { "appenders": [ "logfile" ], "level": "debug" }

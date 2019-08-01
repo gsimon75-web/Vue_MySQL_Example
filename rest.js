@@ -10,6 +10,7 @@ var path = require("path");
 var scriptName = path.basename(__filename);
 var log4js = require("log4js");
 var logger = log4js.getLogger(scriptName);
+var os = require("os");
 
 var config = require("./config.json");
 
@@ -24,11 +25,17 @@ var db = mysql.createPool({
     password: config["db_password"],
 });
 
-/*db.connect(function(err) {
-    if (err)
-        throw err;
-    console.log("Connected to DB");
-});*/
+// Standard 'healthz' check
+router.get("/healthz", function(req, res, next) {
+    logger.debug("GET healthz");
+    res.status(200).send("ok\n");
+});
+
+// Hostname check for testing load balancers
+router.get("/healthz/hostname", function(req, res, next) {
+    logger.debug("GET healthz/hostame");
+    res.status(200).send(os.hostname() + "\n");
+});
 
 require("./rest_Kunde.js").register(router, db, logger);
 require("./rest_Wohnung.js").register(router, db, logger);

@@ -103,7 +103,6 @@ server.on("error", (error) => {
 // Exit normally if the server has closed
 server.on("close", () => {
     logger.info("Server closed;");
-    process.exit(0);
 });
 
 // Finish the startup when the server has actually started listening
@@ -129,5 +128,7 @@ server.on("listening", () => {
 
 // Start listening
 server.listen(port);
+
+module.exports = server;
 
 // vim: set ts=4 sw=4 et:

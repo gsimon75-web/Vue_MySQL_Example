@@ -18,11 +18,11 @@ var mysql = require('mysql');
 
 var db = mysql.createPool({
     connectionLimit: 10,
-    host: config["db_server"],
-    port: config["db_port"],
-    database: config["db_name"],
-    user: config["db_user"],
-    password: config["db_password"],
+    host: process.env.DB_SERVER || config["db_server"],
+    port: process.env.DB_PORT || config["db_port"],
+    database: process.env.DB_NAME || config["db_name"],
+    user: process.env.DB_USER || config["db_user"],
+    password: process.env.DB_PASSWORD || config["db_password"],
 });
 
 // Standard 'healthz' check

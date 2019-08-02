@@ -60,16 +60,11 @@ app.use((err, req, res, next) => {
 });
 
 // Get port from environment and store in Express.
-var port = parseInt(config.server_port, 10) || 8080;
+var port = parseInt(process.env.PORT, 10) || parseInt(config.server_port, 10) || 8080;
 if (isNaN(port)) {
     port = config.server_port; // named pipe
 }
-var listen_info = "Listen address; ";
-if (process.env.host != undefined) {
-    listen_info += "host='" + process.env.host + "', ";
-}
-listen_info += "port='" + port + "', protocol='http'";
-logger.info(listen_info);
+logger.info("Listen address; port='" + port + "', protocol='http'");
 app.set("port", port);
 
 // Create an http server within the Express app

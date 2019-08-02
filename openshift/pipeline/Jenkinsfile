@@ -1,0 +1,6 @@
+node('nodejs') {
+  stage 'build'
+  openshiftBuild(buildConfig: 'vue-mysql-example', showBuildLogs: 'true')
+  stage 'deploy'
+  openshiftDeploy(deploymentConfig: 'vue-mysql-example')
+}

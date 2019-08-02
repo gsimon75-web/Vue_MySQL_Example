@@ -3,8 +3,7 @@ COPY . /app
 WORKDIR /app
 RUN npm install
 RUN npm run buildprod
-RUN rm -rf node_modules
-RUN npm install --production
+RUN npm prune --production
 
 FROM node:alpine AS production
 ARG SERVER_PORT=8080
@@ -36,7 +35,5 @@ RUN echo "\
 " >config.json
 EXPOSE 8080/tcp
 ENTRYPOINT ["/usr/local/bin/node", "server.js"]
-
-#$ docker image build --build-arg DB_SERVER="yadda" --build-arg DB_PASSWD="verysecret" -t frontend:latest .
 
 # vim: set sw=4 ts=4 et indk= :

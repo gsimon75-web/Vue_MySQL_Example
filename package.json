@@ -6,6 +6,7 @@
   "license": "BSD",
   "private": true,
   "scripts": {
+    "build": "webpack-cli",
     "buildprod": "NODE_ENV=production webpack-cli --progress",
     "builddev": "NODE_ENV=development webpack-cli --progress",
     "test": "mocha --timeout 5000 test/*.js"

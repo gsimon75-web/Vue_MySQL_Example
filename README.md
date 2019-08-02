@@ -71,9 +71,13 @@ This whole process starts when we choose the [Source-to-Image build strategy](ht
 because its Jenkins cannot execute `docker`.)
 
 Technically, the command would be `oc new-app https://github.com/...`, and all the details would be deduced/guessed by
-`oc`, which is quite OK if the things are working and there are no bugs left in our project.
+`oc`, which is usually OK if the things are working and there are no bugs left in our project, and when it is guessed right.
 
-Until then, we may need some more precise control, so we may use a *template file*: `oc new-app -f openshift/templates/app.json`.
+Here, the presence of `Jenkinsfile` fools the mechanism to treat it as a 'pipeline' strategy build, which it is not,
+so we must specify this explicitely: `oc new-app --strategy=source https://github.com/gsimon75-web/Vue_MySQL_Example`
+
+On the other hand, during development we may need some more precise control, so we may use a *template file*:
+`oc new-app -f openshift/templates/app.json`.
 
 So, basically, this template file will describe the build environment, and the actual build process will be described
 by the 'assemble' s2i-script. To which our next problem is related...

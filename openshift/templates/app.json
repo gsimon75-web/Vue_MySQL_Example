@@ -97,7 +97,11 @@
                         "env": [
                             {
                                 "name": "npm_config_loglevel",
-                                "value": "verbose"
+                                "value": "notice"
+                            },
+                            {
+                                "name": "npm_config_shrinkwrap",
+                                "value": "false"
                             },
                             {
                                 "name": "NODE_ENV",

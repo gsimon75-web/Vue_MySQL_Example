@@ -72,8 +72,9 @@ else
     # A pure `npm install` would just trigger the OOM killer, so do it one by one
     #NODE_ENV=development npm install
 
-    node -e 'for (k in require("./package.json").devDependencies) console.log(k)' | xargs -n1 npm install --save-dev
-    node -e 'for (k in require("./package.json").dependencies)    console.log(k)' | xargs -n1 npm install --save-prod
+    node -e 'for (k in require("./package.json").devDependencies) console.log(k)' | NODE_ENV="" xargs -n1 npm install --no-audit --no-save
+    node -e 'for (k in require("./package.json").dependencies)    console.log(k)' | NODE_ENV="" xargs -n1 npm install --no-audit --no-save
+    # npm audit fix
 
     #do not fail when there is no build script
     echo "---> Building in production mode"

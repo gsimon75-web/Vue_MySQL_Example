@@ -178,7 +178,7 @@ is the documentation.
     It is already up. First: why would it be down, and second: we have just tested it via the DB service IP and via the
     LoadBalancer as well, and it worked.
 
-    This is like "Restart your computer. If it is switched off, then switch it on and then restart it."
+    This is like the joke tech-support response of "Restart your computer. If it is switched off, then switch it on and then restart it."
 
 7. "Add a route between the IP address of the exposed service on the master..."
 

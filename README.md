@@ -262,25 +262,30 @@ checked every f...ine possible approach and option... No, I don't think too high
 
 #### That `oc-mysql.sh` script
 
-A small bash trickery about argument manipulating and async coproc handling, because after all this struggle
-I really needed something that actually *works*.
+Set up a tunnel to the pod or service (actually, the first pod of it) given by the `-h` parameter to the port given by the
+`-P` parameter (default 3306), and then start the `mysql` CLI, connecting to the local endpoint of this tunnel, passing on
+the rest of the arguments.
 
-To maintain the tunnel, the command `oc port-forward` stays running until we shut it down, so it must be running in the
+Plus some bash trickery about argument manipulating and async coproc handling, because after all this struggle
+I wanted to do it *right*.
+
+To maintain a tunnel, the command `oc port-forward` stays running until we shut it down, so we must run it in the
 background.
 
-But the port number of the local endpoint of the tunnel is known only when the tunnel has been established, and it's
-written to the output in a human-readable form only, so we need to
+But the port number of the local endpoint of the tunnel is known only when the tunnel has been established (after a few
+seconds), and it's written to the output in a human-readable form only, so we need to
 
 1. Launch `oc port-forward` asynchronously
-2. Wait for this output line
-3. Parse the port number from it
-4. Leave the `oc port-forward` running
+2. Parse its output lines to filter out the local port number
+3. Wait until we actually get it
+4. Leave `oc port-forward` running
 5. Do what we want to do through the tunnel
-6. Finally shut the `oc port-forward` down
+6. Finally shut `oc port-forward` down
 
-Rarely used, but that's exacly what the `coproc` command of `bash` is for.
+Rarely used, but that's exacly the kind of async command execution what the `coproc` command of `bash` is for
+(`man bash`, search for 'Coprocesses').
 
-As of the commandline parameters, I wanted to pass everything to the `mysql` cli, except for two: the destination host
+As of the commandline parameters, we should pass everything to the `mysql` CLI, except for two: the destination host
 and port. So we copy the arguments to a temporary array, filtering and parsing the `-h`, `--host`, `--host=...`, `-P`,
 `--port`, `--port=...`, and finally overwriting the positional parameters with this array.
 
@@ -296,5 +301,3 @@ finally we shut down the tunnel by killing the `oc port-forward` command.
 Just set its environment variables:
 
 `oc set env dc/vuemysqlexample DB_SERVER=mariadb DB_PASSWORD='SsBYnFOIatxos-U4No8J'`
-
-
